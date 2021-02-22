@@ -72,9 +72,9 @@ function PostsComponent(props) {
           );
         })}
       </div>
-      {firebase.auth().currentUser && firebase.auth().currentUser.displayName && (
-        <div className="post-comments">
-          <form onSubmit={onPostClick}>
+      {props.loggedinUserDisplayName && (
+        <div >
+          <form className="post-comments" onSubmit={onPostClick}>
             <input
               className="post-comment-input"
               type="text"

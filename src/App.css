@@ -3,7 +3,7 @@
 }
 
 .app-container {
-  background-color:#fafafa;
+  background-color: #fafafa;
 }
 
 .header-container {
@@ -13,7 +13,9 @@
   padding: 20px;
   border-bottom: 1px solid lightgray;
   display: flex;
-  object-fit: contain; 
+  justify-content: space-between;
+  z-index: 1;
+  /* z-index: 1; => this has been added because while scrolling the posts were overlapping with header */
 }
 
 /* object-fit: contain; ----> regardless of how big the container gets, keep the aspect ratio of image intact*/
@@ -21,68 +23,77 @@
   object-fit: contain;
 }
 
-.posts-container{
+.posts-container {
   max-width: 500px;
   background-color: white;
   border: 1px solid lightgray;
-  margin-bottom: 30px;
+  margin: 20px auto;
 }
 
-.post-header{
+.post-header {
   display: flex;
   align-items: center;
   padding: 20px;
 }
 
-.avtar-image{
+.avtar-image {
   margin-right: 10px;
 }
 
-.post-image{
+.post-image {
   /* object fit and width help to keep image size maintained on all acreens */
-  width: 100%; 
+  width: 100%;
   object-fit: contain;
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
 }
 
-.post-comments-text{
+.post-comments-text {
   font-weight: normal;
   padding: 20px;
 }
 
-.post-comments{
+.post-comments {
   display: flex;
   margin-top: 10px;
-  }
-  
-  .post-comment-input{
-    /* whenever there are 2 children in a parent flexbox we can specify width of each child. So this takes max width and button takes lesser width */
-  flex: 1; 
-  /* padding: 10px; */
-  }
-  
-  .post-comment-button{
+}
+
+.post-comment-input {
+  /* whenever there are 2 children in a parent flexbox we can specify width of each child. So this takes max width and button takes lesser width */
+  flex: 1;
+  border: none;
+  border-top: 1px solid lightgray;
+  padding: 10px;
+}
+
+.post-comment-button {
   flex: 0;
   background-color: transparent;
   color: #6082a3;
-  }
+  border: none;
+  border-top: 1px solid lightgray;
+}
 
-.form-on-modal{
+.form-on-modal {
   display: flex;
   flex-direction: column;
 }
 
-.header-buttons-section{
+/* .header-buttons-section{
   position: absolute;
   right: 0;
-}
+} */
 
-.image-upload-container{
+.image-upload-container {
   display: flex;
   flex-direction: column;
   width: 50%;
   margin: 10px auto 10px auto;
-  position: fixed;
+  /* position: fixed;
   bottom: 0;
+  border-top: 1px solid lightgray; */
+}
+
+.image-upload-progress {
+  width: 100%;
 }

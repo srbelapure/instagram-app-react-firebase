@@ -1,10 +1,23 @@
 import ModalComponent from './ModalComponent'
-import React from "react";
+import React , {useImperativeHandle,useEffect} from "react";
 
 const HeaderComponent = React.forwardRef((props, ref) => {
   /* If we type "ref.current.getMyState().displayName" then we can see current logged in user name
   * we are using forwardRef to achieve the state value from a child component to parent component(i.e; from modal comp to header comp)
   */
+
+  console.log("ref",ref)
+
+  // useImperativeHandle(
+  //   ref,
+  //   () => ({
+  //     getMyState: () => {
+  //       return ref.current.getMyState().displayName;
+  //     },
+  //   }),
+  //   []
+  // );
+
   return (
     <div className="header-container">
       <img
