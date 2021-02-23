@@ -17,7 +17,7 @@ const HeaderComponent = React.forwardRef((props, ref) => {
   //   }),
   //   []
   // );
-
+  
   return (
     <div className="header-container">
       <img
@@ -26,7 +26,7 @@ const HeaderComponent = React.forwardRef((props, ref) => {
           height="40px"
           alt=""
         />
-      <ModalComponent ref={ref}/>
+      <ModalComponent ref={ref} loggedinUserDisplayName={props.loggedinUserDisplayName}/>
     </div>
   );
 })

@@ -61,17 +61,15 @@ function PostsComponent(props) {
         </strong>
         {props.caption}
       </h4>
-      <div className="added-comments-text-section">
         {comments.map((comment) => {
           return (
-            <p key={comment.id}>
+            <p key={comment.id} className="added-comments-text-section">
               <strong>{comment.comments.username}</strong>
               {" :"}
               {comment.comments.text}
             </p>
           );
         })}
-      </div>
       {props.loggedinUserDisplayName && (
         <div >
           <form className="post-comments" onSubmit={onPostClick}>

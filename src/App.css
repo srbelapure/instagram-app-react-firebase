@@ -50,7 +50,12 @@
 
 .post-comments-text {
   font-weight: normal;
-  padding: 20px;
+  padding: 5px;
+  border-bottom: 1px solid lightgray;
+}
+
+.added-comments-text-section{
+  padding: 5px;  
 }
 
 .post-comments {
