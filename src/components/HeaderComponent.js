@@ -6,8 +6,6 @@ const HeaderComponent = React.forwardRef((props, ref) => {
   * we are using forwardRef to achieve the state value from a child component to parent component(i.e; from modal comp to header comp)
   */
 
-  console.log("ref",ref)
-
   // useImperativeHandle(
   //   ref,
   //   () => ({

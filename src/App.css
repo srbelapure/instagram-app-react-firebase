@@ -16,6 +16,12 @@
   justify-content: space-between;
   z-index: 1;
   /* z-index: 1; => this has been added because while scrolling the posts were overlapping with header */
+
+    max-width: 500px;
+    margin: 20px auto;
+    border: 1px solid lightgray;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 /* object-fit: contain; ----> regardless of how big the container gets, keep the aspect ratio of image intact*/
@@ -34,6 +40,12 @@
   display: flex;
   align-items: center;
   padding: 20px;
+}
+
+.image-and-user{
+  display: flex;
+  flex: 1;
+  align-items: center;
 }
 
 .avtar-image {
@@ -56,6 +68,12 @@
 
 .added-comments-text-section{
   padding: 5px;  
+  order: 1;
+  flex: 1;
+  /*
+  word-break: break-all;  is use dto break words and display them properly
+  */
+  word-break: break-all;
 }
 
 .post-comments {
@@ -77,6 +95,24 @@
   color: #6082a3;
   border: none;
   border-top: 1px solid lightgray;
+}
+
+.user-comment-on-post{
+  display: flex;
+}
+
+.delete-comment-on-post,.delete-post{
+  order: 2;
+  flex: 0;
+  cursor: pointer;
+  border:none;
+  background-color: transparent;
+  padding: 0 6px;
+  color: #6082a3;
+}
+
+.delete-comment-on-post:hover,.delete-post:hover{
+  background-color: lightgray;
 }
 
 .form-on-modal {
@@ -101,4 +137,13 @@
 
 .image-upload-progress {
   width: 100%;
+}
+
+.stories-bar-container{
+  max-width: 500px;
+  background-color: white;
+  border: 1px solid lightgray;
+  margin: 20px auto;
+  padding: 20px 0;
+  overflow-x: scroll;
 }

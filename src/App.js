@@ -1,16 +1,27 @@
 import React from "react";
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect,useRef} from "react";
 import HeaderComponent from "./components/HeaderComponent";
 import PostsComponent from "./components/PostsComponent";
 import ImageUploadComponent from './components/ImageUploadComponent'
+//import StoriesBarComponent from './components/StoriesBarComponent'
+
 import { db,auth } from "./components/Firebase";
 import firebase from "firebase";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import Stories from "react-insta-stories";
 import "./App.css";
+
+/** To work with font awesome use this:
+ * yarn add @fortawesome/fontawesome-free  .............> install dependency
+ * import '@fortawesome/fontawesome-free/css/all.min.css'; ...........> import this in app.js 
+ */
 
 const App = React.forwardRef((props, ref) => {
   const [posts, setPosts] = useState([]); // this hook is for displaying posts(images,captions,username)
   const myRef = useRef();
-  const [loggedinUserDisplayName,setLoggedinUserDisplayName] = useState('') // THIS STATE VARIABLE IS OBSOLETE, as we are using "firebase.auth().currentUser.displayName" to get current logged in user
+  const [loggedinUserDisplayName,setLoggedinUserDisplayName] = useState('') 
+
+  //const [stories,setStories] = useState([])
 
   useEffect(() => {
     db.collection("posts").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
@@ -21,7 +32,7 @@ const App = React.forwardRef((props, ref) => {
   useEffect(() => {
     // // below if condition is used to set value of current logged inn user to loggedinUserDisplayName state variable
     // /** loggedinUserDisplayName can be added in dependency array */
-  
+
     auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setLoggedinUserDisplayName(authUser.displayName);
@@ -31,9 +42,30 @@ const App = React.forwardRef((props, ref) => {
     });
   }, [loggedinUserDisplayName]);
 
+  //  useEffect(() => {
+  //    const unsubscribe = db.collection("stories")
+  //    .onSnapshot((snapshot) => {
+  //      setStories(
+  //        snapshot.docs.map((doc) => 
+  //         ({ id: doc.id, story: doc.data() })
+  //        )
+  //      );
+  //    });
+     
+  //    return () => {
+  //      unsubscribe()
+  //    };
+  //  }, []);
+
+    // console.log("stories",stories)
   return (
     <div className="app-container">
       <HeaderComponent ref={myRef} loggedinUserDisplayName={loggedinUserDisplayName}/>
+      {/* {stories.map((story)=>{
+        return(
+          <StoriesBarComponent key={story.id} stories={story.story} storyId={story.id}/>
+        )
+      })} */}
       {posts.map((post) => {
         return (
           <PostsComponent
@@ -52,6 +84,7 @@ const App = React.forwardRef((props, ref) => {
        :
        "Please login to upload image"
        }
+
     </div>
   );
 })

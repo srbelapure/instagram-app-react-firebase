@@ -46,6 +46,8 @@ function ImageUploadComponent() {
               username: firebase.auth().currentUser.displayName, // firebase.auth().currentUser.displayName => current user display name
             });
 
+            window.scrollTo(0, 0) // After uploading the image, automatically scroll to top of page to see it
+
             setImage(null); // after successful loading, reset to fresh state
             setProgress(0); // after successful loading, reset to fresh state
             setCaption(""); // after successful loading, reset to fresh state
@@ -53,19 +55,25 @@ function ImageUploadComponent() {
       }
     );
   };
+
+  // // To scroll a page to top use this
+  //   useEffect(() => {
+  //     window.scrollTo(0, 0)
+  //   }, [])
+
   return (
     <div className="image-upload-container">
       {/* progress is a default html progress control */}
       <progress className="image-upload-progress" max="100" value={progress} />
       {/* <form> */}
-        <input
-          type="text"
-          placeholder="Enter a caption"
-          value={caption}
-          onChange={(e) => setCaption(e.target.value)}
-        />
-        <input type="file" onChange={handleFileChange} />
-        <Button onClick={handleFileUpload}>Upload</Button>
+      <input
+        type="text"
+        placeholder="Enter a caption"
+        value={caption}
+        onChange={(e) => setCaption(e.target.value)}
+      />
+      <input type="file" onChange={handleFileChange} />
+      <Button onClick={handleFileUpload}>Upload</Button>
       {/* </form> */}
     </div>
   );

@@ -42,16 +42,42 @@ function PostsComponent(props) {
     
     setComment('')
   };
+  const onDeleteComment =(id)=>{
+    db.collection("posts").doc(props.postid).collection("comments").doc(id).delete();
+  }
+  const onDeletePost=(id)=>{
+    db.collection("posts").doc(props.postid).delete();
+  }
   return (
     <div className="posts-container">
       <div className="post-header">
-        <Avatar
-          src=""
-          alt="username"
-          className="avtar-image"
-          onClick={clickAvatar}
-        />
-        <h3>{props.username}</h3>
+        <div className="image-and-user">
+          <Avatar className="avtar-image">
+            {props.username.slice(0, 1).toUpperCase()}
+          </Avatar>
+          {/* {props.loggedinUserDisplayName === props.username ? (
+          <Avatar>{props.username.slice(0, 1).toUpperCase()}</Avatar>
+        ) : (
+          <Avatar
+            src=""
+            alt="username"
+            className="avtar-image"
+            onClick={clickAvatar}
+          />
+        )} */}
+
+          <h3>{props.username}</h3>
+        </div>
+        {props.loggedinUserDisplayName === props.username ? (
+          <button
+            className="delete-post"
+            onClick={() => onDeletePost(props.postid)}
+          >
+            <i className="fas fa-trash"></i>
+          </button>
+        ) : (
+          <div></div>
+        )}
       </div>
       <img className="post-image" src={props.imageurl} alt={props.caption} />
       <h4 className="post-comments-text">
@@ -61,17 +87,31 @@ function PostsComponent(props) {
         </strong>
         {props.caption}
       </h4>
+      <div className="user-comments-container">
         {comments.map((comment) => {
           return (
-            <p key={comment.id} className="added-comments-text-section">
-              <strong>{comment.comments.username}</strong>
-              {" :"}
-              {comment.comments.text}
-            </p>
+            <div className="user-comment-on-post" key={comment.id}>
+              {comment.comments.username === props.loggedinUserDisplayName ? (
+                <button
+                  className="delete-comment-on-post"
+                  onClick={() => onDeleteComment(comment.id)}
+                >
+                  <i className="fas fa-trash"></i>
+                </button>
+              ) : (
+                <div></div>
+              )}
+              <p className="added-comments-text-section">
+                <strong>{comment.comments.username}</strong>
+                {" :"}
+                {comment.comments.text}
+              </p>
+            </div>
           );
         })}
+      </div>
       {props.loggedinUserDisplayName && (
-        <div >
+        <div>
           <form className="post-comments" onSubmit={onPostClick}>
             <input
               className="post-comment-input"
