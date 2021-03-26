@@ -1,14 +1,15 @@
 import React from "react";
 import { useState, useEffect,useRef} from "react";
+import { BrowserRouter, Link, Switch, Route } from 'react-router-dom';
+// import { withRouter } from 'react-router';
 import HeaderComponent from "./components/HeaderComponent";
 import PostsComponent from "./components/PostsComponent";
 import ImageUploadComponent from './components/ImageUploadComponent'
-//import StoriesBarComponent from './components/StoriesBarComponent'
+import StoriesBarComponent from './components/StoriesBarComponent'
+import StoriesComponent from './components/StoriesComponent'
 
 import { db,auth } from "./components/Firebase";
-import firebase from "firebase";
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import Stories from "react-insta-stories";
 import "./App.css";
 
 /** To work with font awesome use this:
@@ -21,73 +22,103 @@ const App = React.forwardRef((props, ref) => {
   const myRef = useRef();
   const [loggedinUserDisplayName,setLoggedinUserDisplayName] = useState('') 
 
-  //const [stories,setStories] = useState([])
+  const [stories,setStories] = useState([])
 
   useEffect(() => {
-    db.collection("posts").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+    console.log("**************1")
+    const unsubscribe=db.collection("posts").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
       setPosts(snapshot.docs.map((doc) => ({ id: doc.id, post: doc.data() })));
     });
+    return () => {
+      unsubscribe()
+    };
   }, []);
 
   useEffect(() => {
+    console.log("**************2")
     // // below if condition is used to set value of current logged inn user to loggedinUserDisplayName state variable
     // /** loggedinUserDisplayName can be added in dependency array */
 
-    auth.onAuthStateChanged((authUser) => {
+    const unsubscribe= auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setLoggedinUserDisplayName(authUser.displayName);
       } else {
         setLoggedinUserDisplayName(null);
       }
     });
+    return () => {
+      unsubscribe()
+    };
   }, [loggedinUserDisplayName]);
 
-  //  useEffect(() => {
-  //    const unsubscribe = db.collection("stories")
-  //    .onSnapshot((snapshot) => {
-  //      setStories(
-  //        snapshot.docs.map((doc) => 
-  //         ({ id: doc.id, story: doc.data() })
-  //        )
-  //      );
-  //    });
+   useEffect(() => {
+    console.log("**************3")
+     const unsubscribe = db.collection("stories")
+     .onSnapshot((snapshot) => {
+       setStories(
+         snapshot.docs.map((doc) => 
+          ({ id: doc.id, story: doc.data() })
+         )
+       );
+     });
      
-  //    return () => {
-  //      unsubscribe()
-  //    };
-  //  }, []);
+     return () => {
+       unsubscribe()
+     };
+   }, []);
 
-    // console.log("stories",stories)
+    console.log("stories",stories)
   return (
-    <div className="app-container">
-      <HeaderComponent ref={myRef} loggedinUserDisplayName={loggedinUserDisplayName}/>
-      {/* {stories.map((story)=>{
-        return(
-          <StoriesBarComponent key={story.id} stories={story.story} storyId={story.id}/>
-        )
-      })} */}
-      {posts.map((post) => {
-        return (
-          <PostsComponent
-            key={post.id}
-            postid={post.id}
-            caption={post.post.caption}
-            imageurl={post.post.imageurl}
-            username={post.post.username}
-            loggedinUserDisplayName={loggedinUserDisplayName}
-          />
-        );
-      })}
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          {" "}
+          <div className="app-container">
+            <HeaderComponent
+              ref={myRef}
+              loggedinUserDisplayName={loggedinUserDisplayName}
+            />
+            {/* {stories.map((story) => {
+              return (
+                <StoriesBarComponent
+                  key={story.id}
+                  stories={story.story}
+                  storyId={story.id}
+                />
+              );
+            })} */}
+            <StoriesBarComponent stories={stories} loggedinUserDisplayName={loggedinUserDisplayName}/>
+            {posts.map((post) => {
+              return (
+                <PostsComponent
+                  key={post.id}
+                  postid={post.id}
+                  caption={post.post.caption}
+                  imageurl={post.post.imageurl}
+                  username={post.post.username}
+                  loggedinUserDisplayName={loggedinUserDisplayName}
+                />
+              );
+            })}
 
-      {loggedinUserDisplayName ?
-      <ImageUploadComponent/>
-       :
-       "Please login to upload image"
-       }
-
-    </div>
+            {loggedinUserDisplayName ? (
+              <ImageUploadComponent />
+            ) : (
+              "Please login to upload image"
+            )}
+          </div>
+        </Route>
+        {/* <Route path="/:username/stories"><StoriesComponent/></Route> */}
+        {/* <Route path="/stories" component={StoriesComponent}/> */}
+        {/* <Route path="/:username/stories" component={()=>(<StoriesComponent stories={stories}/>)}/> */}
+        <Route path="/:username/stories" render={(props) => <StoriesComponent {...props} stories={stories}/>}/>
+        
+      </Switch>
+    </BrowserRouter>
   );
 })
+export default App;
+
 
 // function App() {
 //   const [posts, setPosts] = useState([]); // this hook is for displaying posts(images,captions,username)
@@ -148,5 +179,3 @@ const App = React.forwardRef((props, ref) => {
 //     </div>
 //   );
 // }
-
-export default App;

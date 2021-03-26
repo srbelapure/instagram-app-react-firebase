@@ -146,4 +146,39 @@
   margin: 20px auto;
   padding: 20px 0;
   overflow-x: scroll;
+
+  display: flex;
+}
+
+.stories-bar-container,a{
+  padding: 5px;
+}
+
+.stories-demo-container{
+  display: flex;
+  justify-content: center;
+}
+
+.add-user-story{
+   font-size: 35px;
+}
+
+.add-new-story-for-user{
+flex: 0;
+background-color: transparent;
+color: #6082a3;
+border: none;
+cursor: pointer;
+}
+
+.avatars-of-user-stories{
+    flex: 1;
+    border: 1px solid lightgray;
+    border-radius: 10%;
+    margin:5px
+}
+
+.stories-bar-container input[type='file']{
+  flex: 1;
+  min-width: 40%;
 }
