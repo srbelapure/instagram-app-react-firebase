@@ -152,6 +152,16 @@
   justify-content: center;
 }
 
+.select-user-stories-to-add{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid lightgray;
+  border-radius: 10%;
+  padding: 5px;
+}
+
 .add-user-story{
    font-size: 35px;
 }
@@ -174,8 +184,17 @@ cursor: pointer;
 .stories-bar-container input[type='file']{
   flex: 1;
   min-width: 40%;
+  width: 183px;
 }
 
 .stories-demo-container>div>div+div[style*="overflow: hidden;"]>div{
   margin: auto;
+}
+
+.stories-upload-progress{
+    position: fixed;
+    width: 50%;
+    left: 250px;
+    top: 180px;
+    z-index: 10000;
 }
