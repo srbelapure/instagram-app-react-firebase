@@ -8,7 +8,6 @@ function StoriesComponent(props) {
     const [imagesUrl,setImagesUrl]= useState([])
 
     useEffect(() => {
-        console.log("**************4",props,props.stories)
        props.stories.map((item)=>{
             if(item.story.username === props.match.params.username){
                 // setImagesUrl(oldValues => [...oldValues,item.story.imageurl])
@@ -27,16 +26,10 @@ function StoriesComponent(props) {
         props.history.push('/')
     }
     const stylesForStoriesImages={
-      objectFit: 'fill',
-      height:'100%',
-      width:'100%'
+      //use this prop to override default css styles of Stories component
     }
     return (
       <div className="stories-demo-container">
-        {
-          
-    console.log("*******imagesUrlimagesUrl*****",imagesUrl)
-        }
         {imagesUrl.length > 0 ? (
           <Stories
             stories={imagesUrl}

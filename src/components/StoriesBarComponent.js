@@ -61,7 +61,6 @@ function StoriesBarComponent(props) {
 
   const addUserStory = async ()=> {
    
-console.log("imageUrl**************",imageUrl)
 let downloadUrlList=[]
 
 
@@ -87,7 +86,6 @@ imageUrl.forEach(file => {
 
                if(downloadFilesUrlFromFireStore.length === imageUrl.length){
                  alert("task upload done for all original elements")
-                 console.log("downloadFilesUrlFromFireStore",downloadFilesUrlFromFireStore)
                  db.collection("stories").add({
                   timestamp: firebase.firestore.FieldValue.serverTimestamp(), // this gets server timestamp, hence it remains unified
                   imageurl: downloadFilesUrlFromFireStore, // url => has the value of uploaded image

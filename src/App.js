@@ -9,7 +9,7 @@ import StoriesBarComponent from './components/StoriesBarComponent'
 import StoriesComponent from './components/StoriesComponent'
 
 import { db,auth } from "./components/Firebase";
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css'; // we need this file for font-awesome icons to work with our application
 import "./App.css";
 
 /** To work with font awesome use this:
@@ -25,7 +25,6 @@ const App = React.forwardRef((props, ref) => {
   const [stories,setStories] = useState([])
 
   useEffect(() => {
-    console.log("**************1")
     const unsubscribe=db.collection("posts").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
       setPosts(snapshot.docs.map((doc) => ({ id: doc.id, post: doc.data() })));
     });
@@ -35,7 +34,6 @@ const App = React.forwardRef((props, ref) => {
   }, []);
 
   useEffect(() => {
-    console.log("**************2")
     // // below if condition is used to set value of current logged inn user to loggedinUserDisplayName state variable
     // /** loggedinUserDisplayName can be added in dependency array */
 
@@ -52,7 +50,6 @@ const App = React.forwardRef((props, ref) => {
   }, [loggedinUserDisplayName]);
 
    useEffect(() => {
-    console.log("**************3")
      const unsubscribe = db.collection("stories")
      .onSnapshot((snapshot) => {
        setStories(
@@ -67,7 +64,6 @@ const App = React.forwardRef((props, ref) => {
      };
    }, []);
 
-    console.log("stories",stories)
   return (
     <BrowserRouter>
       <Switch>
