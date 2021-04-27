@@ -28,9 +28,6 @@ function PostsComponent(props) {
     };
   }, [props.postid]);
 
-  const clickAvatar = () => {
-    alert("avtar clicked");
-  };
   const onPostClick = (event) => {
     event.preventDefault();
 
@@ -55,17 +52,6 @@ function PostsComponent(props) {
           <Avatar className="avtar-image">
             {props.username.slice(0, 1).toUpperCase()}
           </Avatar>
-          {/* {props.loggedinUserDisplayName === props.username ? (
-          <Avatar>{props.username.slice(0, 1).toUpperCase()}</Avatar>
-        ) : (
-          <Avatar
-            src=""
-            alt="username"
-            className="avtar-image"
-            onClick={clickAvatar}
-          />
-        )} */}
-
           <h3>{props.username}</h3>
         </div>
         {props.loggedinUserDisplayName === props.username ? (

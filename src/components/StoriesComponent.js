@@ -2,24 +2,15 @@ import React,{useState,useEffect} from 'react'
 import Stories from "react-insta-stories";
 
 function StoriesComponent(props) {
-    // console.log("propspropspropspropspropspropspropspropspropspropspropsv",props)
-    // console.log("props.match.params",props.match.params.username)
-    // const [imagesUrl,setImagesUrl]= useState([])
     const [imagesUrl,setImagesUrl]= useState([])
 
     useEffect(() => {
        props.stories.map((item)=>{
             if(item.story.username === props.match.params.username){
-                // setImagesUrl(oldValues => [...oldValues,item.story.imageurl])
-                // setImagesUrl(...imagesUrl,item.story.imageurl)
-                setImagesUrl(item.story.imageurl)
+                return setImagesUrl(item.story.imageurl)
             }
         })
-        // return () => {
-        //     unsubscribe()
-        // };
     }
-    // , [imagesUrl,props.match.params.username])
     ,[])
     
     const endOfStoriesForUser=()=>{
@@ -40,18 +31,8 @@ function StoriesComponent(props) {
             // height={600}
           />
         ) : (
-          <div> no elementssssssssssss</div>
+          <div>If you wish to see the stories again then go to main page and select the stories again!!!!</div>
         )}
-
-{/* <Stories
-            stories={imagesUrl}
-            // onAllStoriesEnd={()=>setOnClickForInstaStoryIcon(false)}
-            onAllStoriesEnd={endOfStoriesForUser}
-            storyStyles={stylesForStoriesImages}
-            width={600}
-            height={600}
-          /> */}
-
       </div>
     );
 }

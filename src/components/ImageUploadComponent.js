@@ -65,7 +65,6 @@ function ImageUploadComponent() {
     <div className="image-upload-container">
       {/* progress is a default html progress control */}
       <progress className="image-upload-progress" max="100" value={progress} />
-      {/* <form> */}
       <input
         type="text"
         placeholder="Enter a caption"
@@ -74,7 +73,6 @@ function ImageUploadComponent() {
       />
       <input type="file" onChange={handleFileChange} />
       <Button onClick={handleFileUpload}>Upload</Button>
-      {/* </form> */}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect,useRef} from "react";
-import { BrowserRouter, Link, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 // import { withRouter } from 'react-router';
 import HeaderComponent from "./components/HeaderComponent";
 import PostsComponent from "./components/PostsComponent";
