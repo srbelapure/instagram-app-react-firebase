@@ -87,7 +87,10 @@ const App = React.forwardRef((props, ref) => {
                 />
               );
             })} */}
-            <StoriesBarComponent stories={stories} loggedinUserDisplayName={loggedinUserDisplayName}/>
+            {/* {
+              we always need to send " {...props} " to a component if we want to access props.match.params in the component
+            } */}
+            <StoriesBarComponent {...props} stories={stories} loggedinUserDisplayName={loggedinUserDisplayName}/>
             {posts.map((post) => {
               return (
                 <PostsComponent

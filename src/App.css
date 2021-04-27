@@ -128,7 +128,8 @@
 .image-upload-container {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  /* max-width: 500px; is same for both image uploader component and post container component */
+  max-width: 500px;
   margin: 10px auto 10px auto;
   /* position: fixed;
   bottom: 0;
@@ -181,4 +182,13 @@ cursor: pointer;
 .stories-bar-container input[type='file']{
   flex: 1;
   min-width: 40%;
+}
+
+.stories-demo-container div>img{
+  width: 10%;
+    max-width: 10%;
+    max-height: 10%;
+    margin: auto;
+    object-fit: fill;
+    height: 10%;
 }
