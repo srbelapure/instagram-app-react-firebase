@@ -21,6 +21,7 @@ const App = React.forwardRef((props, ref) => {
   const [posts, setPosts] = useState([]); // this hook is for displaying posts(images,captions,username)
   const myRef = useRef();
   const [loggedinUserDisplayName,setLoggedinUserDisplayName] = useState('') 
+  const [uid,setUid] = useState(null)
 
   const [stories,setStories] = useState([])
 
@@ -39,6 +40,7 @@ const App = React.forwardRef((props, ref) => {
 
     const unsubscribe= auth.onAuthStateChanged((authUser) => {
       if (authUser) {
+        setUid(authUser.uid)
         setLoggedinUserDisplayName(authUser.displayName);
       } else {
         setLoggedinUserDisplayName(null);
@@ -47,7 +49,7 @@ const App = React.forwardRef((props, ref) => {
     return () => {
       unsubscribe()
     };
-  }, [loggedinUserDisplayName]);
+  }, [loggedinUserDisplayName,uid]);
 
    useEffect(() => {
      const unsubscribe = db.collection("stories")
@@ -86,7 +88,7 @@ const App = React.forwardRef((props, ref) => {
             {/* {
               we always need to send " {...props} " to a component if we want to access props.match.params in the component
             } */}
-            <StoriesBarComponent {...props} stories={stories} loggedinUserDisplayName={loggedinUserDisplayName}/>
+            <StoriesBarComponent {...props} stories={stories} loggedinUserDisplayName={loggedinUserDisplayName} uid={uid}/>
             {posts.map((post) => {
               return (
                 <PostsComponent

@@ -8,6 +8,14 @@ function StoriesBarComponent(props) {
   const [imageUrl, setImageUrl] = useState([]);
   const [progress, setProgress] = useState(0);
   let downloadFilesUrlFromFireStore = [];
+  let userNameArray=[]
+
+  props.stories.map((item) => {
+    if (userNameArray.indexOf(item.story.username) === -1) {
+      userNameArray.push(item.story.username);
+    }
+  });
+
 
   const handleFileChange = (e) => {
     for (let i = 0; i < e.target.files.length; i++) {
@@ -51,6 +59,7 @@ function StoriesBarComponent(props) {
               timestamp: firebase.firestore.FieldValue.serverTimestamp(), // this gets server timestamp, hence it remains unified
               imageurl: downloadFilesUrlFromFireStore, // url => has the value of uploaded image
               username: firebase.auth().currentUser.displayName, // firebase.auth().currentUser.displayName => current user display name
+              userid : props.uid
             });
           }
         }
@@ -65,15 +74,12 @@ function StoriesBarComponent(props) {
 
   return (
     <div className="stories-bar-container">
-      {
-      console.log("progressprogress",progress)
-      }
       {progress === 0 ? (
         <progress
           className="stories-upload-progress"
           max="100"
           value={progress}
-          style={{display:'none'}}
+          style={{ display: "none" }}
         />
       ) : (
         <progress
@@ -92,13 +98,12 @@ function StoriesBarComponent(props) {
           <i className="fas fa-plus-circle add-user-story"></i>
         </span>
       </div>
-
-      {props.stories.map((story) => {
+      {userNameArray.map((story) => {
         return (
-          <span className="avatars-of-user-stories" key={story.id}>
-            <Link to={`/${story.story.username}/stories`}>
-              <Avatar>{story.story.username.slice(0, 1).toUpperCase()}</Avatar>
-              <p>{story.story.username}</p>
+          <span className="avatars-of-user-stories" key={story}>
+            <Link to={`/${story}/stories`}>
+              <Avatar>{story.slice(0, 1).toUpperCase()}</Avatar>
+              <p>{story}</p>
             </Link>
           </span>
         );
