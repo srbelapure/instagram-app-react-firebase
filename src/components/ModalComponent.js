@@ -83,6 +83,10 @@ const ModalComponent = React.forwardRef((props, ref) => {
           displayName: username, //when user is created then add the username value to displayName attribute
         });
       })
+      .then(()=>{
+        //used to re-load the page after sign-up, so that user is logged in
+        window.location.reload();
+      })
       .catch((error) => alert(error.message));
     setOpenSignUp(false);
   };
@@ -94,6 +98,20 @@ const ModalComponent = React.forwardRef((props, ref) => {
       .catch((error) => alert(error.message));
     setOpenSignIn(false);
   };
+
+  const onClickHeaderSignInButton=()=>{
+    setOpenSignIn(true)
+    setUsername("")
+    setEmail("")
+    setPassword("")
+  }
+
+  const onClickHeaderSignUpButton=()=>{
+    setOpenSignUp(true)
+    setUsername("")
+    setEmail("")
+    setPassword("")
+  }
 
   return (
     <div>
@@ -113,7 +131,7 @@ const ModalComponent = React.forwardRef((props, ref) => {
             <Button
               color="secondary"
               variant="contained"
-              onClick={() => setOpenSignIn(true)}
+              onClick={onClickHeaderSignInButton}
               style={{marginRight:5}}
             >
               Sign In
@@ -121,7 +139,7 @@ const ModalComponent = React.forwardRef((props, ref) => {
             <Button
               color="secondary"
               variant="contained"
-              onClick={() => setOpenSignUp(true)}
+              onClick={onClickHeaderSignUpButton}
               style={{marginRight:5}}
             >
               Sign Up
