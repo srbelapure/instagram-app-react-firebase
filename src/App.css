@@ -2,31 +2,31 @@
   margin: 0;
 }
 
+#root{
+  height: 100vh;
+}
+
 .app-container {
   background-color: #fafafa;
 }
 
 .header-container {
-  position: sticky;
   top: 0;
-  background-color: white;
   padding: 20px;
-  border-bottom: 1px solid lightgray;
   display: flex;
   justify-content: space-between;
   z-index: 1;
   /* z-index: 1; => this has been added because while scrolling the posts were overlapping with header */
-
-    max-width: 500px;
-    margin: 20px auto;
-    border: 1px solid lightgray;
-    padding-left: 0;
-    padding-right: 0;
+  max-width: 500px;
+  margin: 0px auto;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* object-fit: contain; ----> regardless of how big the container gets, keep the aspect ratio of image intact*/
 .header-image {
   object-fit: contain;
+  padding-left: 5px;
 }
 
 .posts-container {
@@ -126,25 +126,22 @@
   /* max-width: 500px; is same for both image uploader component and post container component */
   max-width: 500px;
   margin: 10px auto 10px auto;
+  border: 1px solid lightgray;
 }
 
 .image-upload-progress {
-  width: 100%;
+  width: 50%;
+  margin: 0px auto;
 }
 
 .stories-bar-container{
   max-width: 500px;
-  background-color: white;
-  border: 1px solid lightgray;
   margin: 20px auto;
   padding: 20px 0;
-  overflow-x: scroll;
-
+  overflow-x: auto;
   display: flex;
-}
-
-.stories-bar-container,a{
-  padding: 5px;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .stories-demo-container{
@@ -153,17 +150,12 @@
 }
 
 .select-user-stories-to-add{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid lightgray;
   border-radius: 10%;
-  padding: 5px;
+  margin: 0px 5px;
 }
 
 .add-user-story{
-   font-size: 35px;
+   font-size: 25px;
 }
 
 .add-new-story-for-user{
@@ -172,13 +164,7 @@ background-color: transparent;
 color: #6082a3;
 border: none;
 cursor: pointer;
-}
-
-.avatars-of-user-stories{
-    flex: 1;
-    border: 1px solid lightgray;
-    border-radius: 10%;
-    margin:5px
+margin-top: 5px;
 }
 
 .stories-bar-container input[type='file']{
@@ -197,4 +183,131 @@ cursor: pointer;
     left: 250px;
     top: 180px;
     z-index: 10000;
+}
+
+.post-upload-input{
+  margin: 5px;
+  border: none;
+  border: 1px solid lightgray;
+  border-radius: 50px;
+  padding: 10px;
+  width: 80%;
+  flex: 10;
+}
+
+.upload-post-button, .create-post-button{
+  margin: 5px 5px !important;
+  flex: 1;
+}
+
+.file-upload-option{
+  margin: 2px auto;
+  width: 80%;
+}
+
+.upload-post-section-button-group{
+  display: flex;
+  flex-direction: row;
+}
+
+.avatars-of-user-stories a{
+  text-decoration: none;
+  color: black;
+}
+
+.user-name-stories{
+  text-overflow: ellipsis;
+  display:block;
+  max-width: 80px;
+  overflow: hidden;     
+  white-space: nowrap;
+  text-align: center;
+  font-weight: 400;
+}
+
+.avatar-badge-icon-stories {
+  cursor: pointer;
+  background-color: white;
+  border-radius: 55px;
+}
+
+.post-title-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.your-story{
+  font-weight: 400;
+  margin: 5px;
+  white-space: nowrap;
+}
+
+.message-for-logged-out-user{
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 10px auto 10px auto;
+  border: 1px solid lightgray;
+  text-align: center;
+  padding: 10px 0px;
+}
+
+.user-story-avatar {
+  object-fit: contain;
+  cursor: "pointer";
+}
+
+@media screen and (max-width: 400px) {
+  .header-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header-buttons-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .log-out-button {
+    margin-top: 5px !important;
+  }
+
+  .makeStyles-paper-1{
+    width: 60vw !important;
+  }
+}
+
+/* custom scroll-bar */
+/* width */
+::-webkit-scrollbar {
+  width: 1vh;
+  height: 0.8vh;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  display:none;
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track:hover{
+  display:block;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: gray; 
+  border-radius: 10px;
+  display:none
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  display:block;
+  background: darkgray
 }

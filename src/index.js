@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+//Add this link to use material UI Icons
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"></link>
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

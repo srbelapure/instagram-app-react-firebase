@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect,useRef} from "react";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-// import { withRouter } from 'react-router';
 import HeaderComponent from "./components/HeaderComponent";
 import PostsComponent from "./components/PostsComponent";
 import ImageUploadComponent from './components/ImageUploadComponent'
@@ -76,19 +75,27 @@ const App = React.forwardRef((props, ref) => {
               ref={myRef}
               loggedinUserDisplayName={loggedinUserDisplayName}
             />
-            {/* {stories.map((story) => {
-              return (
-                <StoriesBarComponent
-                  key={story.id}
-                  stories={story.story}
-                  storyId={story.id}
-                />
-              );
-            })} */}
             {/* {
               we always need to send " {...props} " to a component if we want to access props.match.params in the component
             } */}
-            <StoriesBarComponent {...props} stories={stories} loggedinUserDisplayName={loggedinUserDisplayName} uid={uid}/>
+
+            {loggedinUserDisplayName ? (
+              <>
+                <StoriesBarComponent
+                  {...props}
+                  stories={stories}
+                  loggedinUserDisplayName={loggedinUserDisplayName}
+                  uid={uid}
+                />
+                <ImageUploadComponent />
+              </>
+            ) : (
+              <div className="message-for-logged-out-user">
+                <h3>This is an Instagram clone app</h3>
+                <div>Sign In / Sign Up to create posts/add stories</div>
+              </div>
+            )}
+
             {posts.map((post) => {
               return (
                 <PostsComponent
@@ -101,82 +108,17 @@ const App = React.forwardRef((props, ref) => {
                 />
               );
             })}
-
-            {loggedinUserDisplayName ? (
-              <ImageUploadComponent />
-            ) : (
-              "Please login to upload image"
-            )}
           </div>
         </Route>
         {/* <Route path="/:username/stories"><StoriesComponent/></Route> */}
         {/* <Route path="/stories" component={StoriesComponent}/> */}
         {/* <Route path="/:username/stories" component={()=>(<StoriesComponent stories={stories}/>)}/> */}
-        <Route path="/:username/stories" render={(props) => <StoriesComponent {...props} stories={stories}/>}/>
-        
+        <Route
+          path="/:username/stories"
+          render={(props) => <StoriesComponent {...props} stories={stories} />}
+        />
       </Switch>
     </BrowserRouter>
   );
 })
 export default App;
-
-
-// function App() {
-//   const [posts, setPosts] = useState([]); // this hook is for displaying posts(images,captions,username)
-//   const myRef = useRef();
-//   const [loggedinUserDisplayName,setLoggedinUserDisplayName] = useState('') // THIS STATE VARIABLE IS OBSOLETE, as we are using "firebase.auth().currentUser.displayName" to get current logged in user
-
-//   useEffect(() => {
-//     db.collection("posts").onSnapshot((snapshot) => {
-//       setPosts(snapshot.docs.map((doc) => ({ id: doc.id, post: doc.data() })));
-//     });
-
-//     // // below if condition is used to set value of current logged inn user to loggedinUserDisplayName state variable
-//     // /** loggedinUserDisplayName can be added in dependency array */
-  
-    
-//   }, []);
-//   // console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&",myRef && myRef.current.getMyState()?myRef.current.getMyState().displayName:'sonali')
-
-//   useEffect(() => {
-//     if (
-//       myRef &&
-//       myRef.current &&
-//       myRef.current.getMyState()
-//     ) {
-//       setLoggedinUserDisplayName(myRef.current.getMyState().displayName);
-//       console.log(myRef.current.getMyState().displayName)
-//     }
-//   }, [loggedinUserDisplayName])
-
-  
-//   return (
-//     <div className="app-container">
-//       {console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@loggedinUserDisplayName",loggedinUserDisplayName)}
-//       {console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@myRef.current.getMyState().displayName",
-//       myRef &&myRef.current &&myRef.current.getMyState()? myRef.current.getMyState().displayName:'qwerty123')}
-//       <HeaderComponent ref={myRef}/>
-//       {posts.map((post) => {
-//         return (
-//           <PostsComponent
-//             key={post.id}
-//             postid={post.id}
-//             caption={post.post.caption}
-//             imageurl={post.post.imageurl}
-//             username={post.post.username}
-//           />
-//         );
-//       })}
-
-//       {myRef &&myRef.current &&myRef.current.getMyState()&& myRef.current.getMyState().displayName ?<ImageUploadComponent/> :"Please login to upload image"}
-
-//       {/* {firebase.auth().currentUser && firebase.auth().currentUser.displayName ?
-//       <ImageUploadComponent/>
-//        :
-//        "Please login to upload image"
-//        } */}
-
-      
-//     </div>
-//   );
-// }

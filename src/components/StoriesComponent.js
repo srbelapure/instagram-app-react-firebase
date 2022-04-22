@@ -14,7 +14,7 @@ function StoriesComponent(props) {
         return()=>{
           setImagesUrl([])
         }
-    },[props.match.params.username])
+    },[props.match.params.username,props.stories])
     
     const endOfStoriesForUser=()=>{
       setImagesUrl([])
@@ -26,7 +26,7 @@ function StoriesComponent(props) {
     
     imagesUrl.map((images) => {
       images.map((item)=>{
-        imagesArray.push(item)
+        return imagesArray.push(item)
       })
     })
 
